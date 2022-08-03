@@ -1,39 +1,40 @@
 .header {
-    width: 1920px;
-    background-color: #1C1C21;
+  width: 1920px;
+  background-color: #1C1C21;
+  text-align: center;
 }
 
 .content {
-    width: 1280px;
-    margin: 16px auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    box-sizing: border-box;
+  width: 1280px;
+  margin: 16px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .navigation {
-    display: flex;
-    margin-right: auto;
-    column-gap: 8px;
+  display: flex;
+  margin-right: auto;
+  column-gap: 8px;
 }
   
 .link {
-    margin: 0 20px;
-    display: flex;
-    align-items: center;
-    column-gap: 8px;
-    color: #8585AD;
-    text-decoration: none;
-    background-color: transparent;
-    border: none;
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  color: #8585AD;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
 }
 
-.nav .link:first-of-type {
-    color: #F2F2F3;
+.navigation .link:first-of-type {
+  color: #F2F2F3;
 }
 
 .button {
-    composes: link;
-    margin: auto;
+  composes: link;
+  margin: auto;
 }
