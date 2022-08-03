@@ -1,38 +1,39 @@
+import PropTypes from 'prop-types';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import {ConstructorElement, DragIcon, CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
 export const BurgerConstructor = ({ ingredients }) => {
 const bun = ingredients.find(item => item.type === 'bun');
-const ingredient = ingredients.filter(item => item.type === 'main' || item.type === 'sauce').slice(1, );
+const toppings = ingredients.filter(item => item.type === 'main' || item.type === 'sauce').slice(1, );
   return (
     <section className={burgerConstructorStyles.container}>
-      <div className={burgerConstructorStyles.component}>
+      <div className={burgerConstructorStyles.base}>
         <ConstructorElement
           type="top"
           isLocked={ true }
-          text={ bun.name }
+          text={`${ bun.name } (верх)`}
           price={ bun.price }
           thumbnail={ bun.image }
         />
       </div>
       <ul className={burgerConstructorStyles.list}>
-        {ingredient.map((element) => (
-        <li className={burgerConstructorStyles.ingredient} key={element._id}>
+        {toppings.map((ingredient, index) => (
+        <li className={ burgerConstructorStyles.ingredient } key={ingredient._id}>
           <DragIcon type="primary" />
           <ConstructorElement
             isLocked={ false }
-            text={ element.name }
-            price={ element.price }
-            thumbnail={ element.image }
+            text={ ingredient.name }
+            price={ ingredient.price }
+            thumbnail={ ingredient.image }
           />
         </li>
         ))}
         </ul>
-          <div className={burgerConstructorStyles.component}>
+          <div className={burgerConstructorStyles.base}>
             <ConstructorElement
               type="bottom"
               isLocked={ true }
-              text={ bun.name }
+              text={`${ bun.name } (низ)`}
               price={ bun.price }
               thumbnail={ bun.image }
             />
@@ -46,3 +47,21 @@ const ingredient = ingredients.filter(item => item.type === 'main' || item.type 
     </section>
   )
 };
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.shape ({
+    "_id": PropTypes.string.isRequired,
+     "name": PropTypes.string.isRequired,
+     "type": PropTypes.string.isRequired,
+     "proteins": PropTypes.number.isRequired,
+     "fat": PropTypes.number.isRequired,
+     "carbohydrates": PropTypes.number.isRequired,
+     "calories": PropTypes.number.isRequired,
+     "price": PropTypes.number.isRequired,
+     "image": PropTypes.string.isRequired,
+     "image_mobile": PropTypes.string.isRequired,
+     "image_large": PropTypes.string.isRequired,
+     "__v": PropTypes.number.isRequired
+    })
+  )
+}

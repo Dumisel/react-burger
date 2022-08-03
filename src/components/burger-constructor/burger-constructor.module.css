@@ -27,7 +27,7 @@
   height: 292px;
 }
 
-.component {
+.base {
   padding: 0 16px 0 32px;
   display: flex;
   justify-content: space-around;

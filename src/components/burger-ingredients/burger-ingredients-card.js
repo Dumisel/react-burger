@@ -8,7 +8,7 @@ export const BurgerIngredientsCard = (data) => {
 		<li>
       <h2 className='text text_type_main-medium text_color_primary'>{ data.name }</h2>
       <div className={ burgerIngredientsStyles.grid }>
-        { data.ingredients.filter(item => item.type === data.type).map((element) => (
+        { data.ingredients.filter(item => item.type === data.type).map((element, index) => (
         <div className={ burgerIngredientsStyles.item } key={ element._id}>
         <Counter count={ 1 } size="default" />
         <img src={ element.image } className={ burgerIngredientsStyles.image } alt={ element.name } />
