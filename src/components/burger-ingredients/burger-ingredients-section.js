@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ingredientType } from '../../utils/types';
+import { ingredientsArrayType } from '../../utils/types';
 import { data } from '../../utils/data';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -26,7 +26,7 @@ export const BurgerIngredientsSection = (data) => {
 }
 
 BurgerIngredientsSection.propTypes = {
-  ingredientType,
+  ingredients: ingredientsArrayType.isRequired,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ingredientType } from '../../utils/types';
+import { ingredientsArrayType } from '../../utils/types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerIngredientsSection } from './burger-ingredients-section';
@@ -31,5 +31,5 @@ export const BurgerIngredients = ({ ingredients }) => {
 }
 
 BurgerIngredients.propTypes = {
-  ingredientType
-  }
+  ingredientsArrayType
+}

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ingredientType } from '../../utils/types';
+import { ingredientsArrayType } from '../../utils/types';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import {ConstructorElement, DragIcon, CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -50,5 +50,5 @@ const toppings = ingredients.filter(item => item.type === 'main' || item.type ==
 };
 
 BurgerConstructor.propTypes = {
-  ingredientType
+  ingredientsArrayType
 }
