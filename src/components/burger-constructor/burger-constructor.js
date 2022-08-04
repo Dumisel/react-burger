@@ -4,7 +4,7 @@ import {ConstructorElement, DragIcon, CurrencyIcon, Button} from '@ya.praktikum/
 
 export const BurgerConstructor = ({ ingredients }) => {
 const bun = ingredients.find(item => item.type === 'bun');
-const toppings = ingredients.filter(item => item.type === 'main' || item.type === 'sauce').slice(1, );
+const toppings = ingredients.filter(item => item.type === 'main' || item.type === 'sauce');
   return (
     <section className={burgerConstructorStyles.container}>
       <div className={burgerConstructorStyles.base}>
@@ -17,7 +17,7 @@ const toppings = ingredients.filter(item => item.type === 'main' || item.type ==
         />
       </div>
       <ul className={burgerConstructorStyles.list}>
-        {toppings.map((ingredient, index) => (
+        { toppings.map((ingredient, index) => (
         <li className={ burgerConstructorStyles.ingredient } key={ingredient._id}>
           <DragIcon type="primary" />
           <ConstructorElement
@@ -27,7 +27,7 @@ const toppings = ingredients.filter(item => item.type === 'main' || item.type ==
             thumbnail={ ingredient.image }
           />
         </li>
-        ))}
+        )) }
         </ul>
           <div className={burgerConstructorStyles.base}>
             <ConstructorElement
