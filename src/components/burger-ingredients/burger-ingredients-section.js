@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
-import { ingredientsArrayType } from '../../utils/types';
-import { data } from '../../utils/data';
+import { ingredientType } from '../../utils/types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const BurgerIngredientsSection = (data) => {
-	return (
+const BurgerIngredientsSection = ({ ingredients, type, name, onClick }) => {
+  return (
 		<li>
-      <h2 className='text text_type_main-medium text_color_primary'>{ data.name }</h2>
+      <h2 className='text text_type_main-medium text_color_primary'>{ name }</h2>
       <div className={ burgerIngredientsStyles.grid }>
-        { data.ingredients.filter(item => item.type === data.type).map((element, index) => (
-        <div className={ burgerIngredientsStyles.item } key={ element._id}>
+        { ingredients.filter(item => item.type === type).map((element, index) => (
+        <div className={ burgerIngredientsStyles.item } key={ element._id } onClick={() => onClick(element)}>
         <Counter count={ 1 } size="default" />
         <img src={ element.image } className={ burgerIngredientsStyles.image } alt={ element.name } />
         <p className={ burgerIngredientsStyles.price }>
@@ -26,7 +25,10 @@ export const BurgerIngredientsSection = (data) => {
 }
 
 BurgerIngredientsSection.propTypes = {
-  ingredients: ingredientsArrayType.isRequired,
+  ingredients: PropTypes.arrayOf(ingredientType).isRequired,
   type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 };
+
+export default BurgerIngredientsSection;
