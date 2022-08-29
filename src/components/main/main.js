@@ -1,14 +1,16 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import mainStyles from './main.module.css';
 
-class Main extends React.Component {
-  render () {
-    return (
-      <div className={ mainStyles.main }>
-        {this.props.children}
-      </div>
-      )
-    } 
+const Main = ({ children }) => {
+  return (
+    <div className={ mainStyles.main }>
+      { children }
+    </div>
+  )
 }
+
+Main.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Main;
