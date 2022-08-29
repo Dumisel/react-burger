@@ -1,3 +1,3 @@
-const api = 'https://norma.nomoreparties.space/api/ingredients';
+const api = 'https://norma.nomoreparties.space/api';
 
 export default api;

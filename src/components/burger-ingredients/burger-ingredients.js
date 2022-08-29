@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ingredientType } from '../../utils/types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientsSection from './burger-ingredients-section';
 
-const BurgerIngredients = ({ ingredients, handleOpenModal }) => {
+const BurgerIngredients = ({ handleOpenModal }) => {
 	const [current, setCurrent] = React.useState('Булки');
   return (
 		<section className={ burgerIngredientsStyles.container }>
@@ -22,16 +21,15 @@ const BurgerIngredients = ({ ingredients, handleOpenModal }) => {
       	</Tab>
     	</div>
 			<ul className={ burgerIngredientsStyles.list }>
-        <BurgerIngredientsSection ingredients={ ingredients } type='bun' name='Булки' onClick={ handleOpenModal } />
-        <BurgerIngredientsSection ingredients={ ingredients } type='sauce' name='Соусы'  onClick={ handleOpenModal } />
-        <BurgerIngredientsSection ingredients={ ingredients } type='main' name='Начинки' onClick={ handleOpenModal } />
+        <BurgerIngredientsSection type='bun' name='Булки' onClick={ handleOpenModal } />
+        <BurgerIngredientsSection type='sauce' name='Соусы'  onClick={ handleOpenModal } />
+        <BurgerIngredientsSection type='main' name='Начинки' onClick={ handleOpenModal } />
       </ul>
 		</section>
   )
 }
 
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType).isRequired,
 	handleOpenModal: PropTypes.func.isRequired
 }
 

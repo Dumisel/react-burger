@@ -1,9 +1,11 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import { ingredientType } from '../../utils/types';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IngredientsContext } from '../../utils/ingredientsContext';
 
-const BurgerIngredientsSection = ({ ingredients, type, name, onClick }) => {
+const BurgerIngredientsSection = ({ type, name, onClick }) => {
+  const ingredients = React.useContext(IngredientsContext);
   return (
 		<li>
       <h2 className='text text_type_main-medium text_color_primary'>{ name }</h2>
@@ -25,7 +27,6 @@ const BurgerIngredientsSection = ({ ingredients, type, name, onClick }) => {
 }
 
 BurgerIngredientsSection.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType).isRequired,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired
