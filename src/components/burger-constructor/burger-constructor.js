@@ -18,7 +18,7 @@ const BurgerConstructor = ({ onOrder }) => {
       .find((item) => item.type === 'bun');
     const toppings = ingredients && ingredients
       .filter((item) => item.type !== 'bun')
-      .slice(0, 5);
+      .slice(0, 2);
     const totalPrice = state.toppings.length && state.toppings
       .reduce((total, current) => total + current.price, 0) + state.bun.price * 2;
     switch (action.type) {

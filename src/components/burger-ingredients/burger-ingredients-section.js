@@ -4,10 +4,10 @@ import burgerIngredientsStyles from './burger-ingredients.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsContext } from '../../utils/ingredientsContext';
 
-const BurgerIngredientsSection = ({ type, name, onClick }) => {
+const BurgerIngredientsSection = React.forwardRef(({ type, name, onClick }, ref) => {
   const ingredients = React.useContext(IngredientsContext);
   return (
-		<li>
+		<li ref={ref}>
       <h2 className='text text_type_main-medium text_color_primary'>{ name }</h2>
       <div className={ burgerIngredientsStyles.grid }>
         { ingredients.filter(item => item.type === type).map((element, index) => (
@@ -24,7 +24,7 @@ const BurgerIngredientsSection = ({ type, name, onClick }) => {
       </div>
     </li>
 	)
-}
+})
 
 BurgerIngredientsSection.propTypes = {
   type: PropTypes.string.isRequired,
