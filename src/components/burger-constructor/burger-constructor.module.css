@@ -6,6 +6,7 @@
 .list {
   box-sizing: border-box;
   list-style: none;
+  width: 100%;
   height: 464px;
   padding: 0 16px 0 16px;
   display: flex;
@@ -40,6 +41,11 @@
   grid-template-columns: 32px 1fr;
   align-items: center;
   justify-items: stretch;
+  cursor: pointer;
+}
+
+.isDragging {
+  opacity: 0.5;
 }
 
 .total {
