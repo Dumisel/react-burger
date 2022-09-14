@@ -18,26 +18,26 @@ import {
   CLOSE_ORDER_DETAILS
   } from '../actions/actions';
 
-  const initialState = {
-    ingredients: [],
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-  
-    currentConstructor: [],
-  
-    ingredient: {},
-  
-    order: {
-      number: 0
-    },
-    orderRequest: false,
-    orderFailed: false,
+const initialState = {
+  ingredients: [],
+  ingredientsRequest: false,
+  ingredientsFailed: false,
 
-    isIngredientDetailsOpened: false,
-    isOrderDetailsOpened: false
-  };
+  currentConstructor: [],
 
-export const burgerReducer = (state = initialState, action) => {
+  ingredient: {},
+
+  order: {
+    number: null
+  },
+  orderRequest: false,
+  orderFailed: false,
+
+  isIngredientDetailsOpened: false,
+  isOrderDetailsOpened: false
+};
+
+export const ingredientsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -61,6 +61,14 @@ export const burgerReducer = (state = initialState, action) => {
         ingredientsFailed: true,
       };
     }
+    default: {
+      return state;
+    }
+  }
+};
+
+export const currentConstructorReducer = (state = initialState, action) => {
+  switch (action.type) {
     case ADD_INGREDIENT: {
       return {
         ...state,
@@ -79,6 +87,14 @@ export const burgerReducer = (state = initialState, action) => {
         currentConstructor: action.payload,
       });
     }
+    default: {
+      return state;
+    }
+  }
+};
+
+export const ingredientReducer = (state = initialState, action) => {
+  switch (action.type) {
     case ADD_INGREDIENT_DATA: {
       return {
         ...state,
@@ -91,6 +107,14 @@ export const burgerReducer = (state = initialState, action) => {
         ingredient: {},
       };
     }
+    default: {
+      return state;
+    }
+  }
+};
+
+export const orderReducer = (state = initialState, action) => {
+  switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {
         ...state,
@@ -109,12 +133,20 @@ export const burgerReducer = (state = initialState, action) => {
       return {
         ...state,
         order: {
-          number: 0,
+          number: null,
         },
         orderRequest: false,
         orderFailed: true,
       };
     }
+    default: {
+      return state;
+    }
+  }
+};
+
+export const modalReducer = (state = initialState, action) => {
+  switch (action.type) {
     case (OPEN_INGREDIENT_DETAILS): {
       return { ...state, isIngredientDetailsOpened: true };
     }
@@ -134,7 +166,11 @@ export const burgerReducer = (state = initialState, action) => {
 };
 
 const rootReducer = combineReducers({
-  burger: burgerReducer
+  ingredientsReducer,
+  currentConstructorReducer,
+  ingredientReducer,
+  orderReducer,
+  modalReducer
 })
 
 export default rootReducer;

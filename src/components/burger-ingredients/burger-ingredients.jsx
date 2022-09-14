@@ -65,9 +65,9 @@ const BurgerIngredients = ({ handleOpenModal }) => {
       	</Tab>
     	</div>
 			<ul className={ burgerIngredientsStyles.list } onScroll={handleTabChange}>
-        <BurgerIngredientsSection type='bun' name='Булки' onClick={ handleOpenModal } ref={bunRef} />
-        <BurgerIngredientsSection type='sauce' name='Соусы'  onClick={ handleOpenModal } ref={sauceRef} />
-        <BurgerIngredientsSection type='main' name='Начинки' onClick={ handleOpenModal } ref={mainRef}/>
+        <BurgerIngredientsSection type='bun' name='Булки' onClick={ handleOpenModal } ref={ bunRef } />
+        <BurgerIngredientsSection type='sauce' name='Соусы'  onClick={ handleOpenModal } ref={ sauceRef } />
+        <BurgerIngredientsSection type='main' name='Начинки' onClick={ handleOpenModal } ref={ mainRef }/>
       </ul>
 		</section>
   )

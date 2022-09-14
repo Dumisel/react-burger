@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import BurgerIngredient from './burger-ingredient';
 
 const BurgerIngredientsSection = React.forwardRef(({ type, name, onClick }, ref) => {
-  const ingredients = useSelector(store => store.burger.ingredients);
+  const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
 
   return (
 		<li ref={ ref }>

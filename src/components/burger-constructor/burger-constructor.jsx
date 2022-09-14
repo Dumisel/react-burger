@@ -1,26 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import burgerConstructorStyles from './burger-constructor.module.css';
-import  {ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import {ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import BurgerConstructorElement from './burger-constructor-element';
-import { v4 as uuidv4 } from 'uuid';
 
-const BurgerConstructor = ({ onOrder, onDropHandler, onDelete, onMove }) => {
-  const currentConstructor = useSelector((store) => store.burger.currentConstructor);
+const BurgerConstructor = ({ onOrder, onDrop, onDelete, onMove }) => {
+  const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
   const bun = currentConstructor && currentConstructor.find((item) => item.type === 'bun');
   const totalPrice = currentConstructor.length ? currentConstructor.reduce((total, current) => 
     (current.type !== 'bun' ? total + current.price : total + current.price * 2), 0) : 0;
   
-    const handleOrder = () => {
+  const handleOrder = () => {
     onOrder(currentConstructor);
   };
 
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item) {
-      onDropHandler(item);
+      onDrop(item);
     }
   });
 
@@ -30,7 +29,7 @@ const BurgerConstructor = ({ onOrder, onDropHandler, onDelete, onMove }) => {
         <BurgerConstructorElement
           element={ element }
           id={ element._id }
-          key= { uuidv4() }
+          key= { element.key }
           index={ index }
           onDelete={ onDelete }
           onMove={ onMove } 
@@ -75,7 +74,7 @@ const BurgerConstructor = ({ onOrder, onDropHandler, onDelete, onMove }) => {
 
 BurgerConstructor.propTypes = {
   onOrder: PropTypes.func.isRequired,
-  onDropHandler: PropTypes.func.isRequired,
+  onDrop: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
 }

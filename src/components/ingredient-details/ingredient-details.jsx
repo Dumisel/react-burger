@@ -2,7 +2,7 @@ import ingredientDetailsStyles from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
 
 const IngredientDetails = () => {
-  const ingredient = useSelector((store) => store.burger.ingredient);
+  const ingredient = useSelector((store) => store.ingredientReducer.ingredient);
 
   return (
     <div className={ ingredientDetailsStyles.container }>

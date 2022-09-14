@@ -6,11 +6,11 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 
 function BurgerIngredient({ element, onClick }) {
-  const currentConstructor = useSelector((store) => store.burger.currentConstructor);
+  const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
   const counter = currentConstructor.filter((item) => item.type === 'bun' && item._id === element._id).length * 2 
                   || currentConstructor.filter((item) => item._id === element._id).length;
 
-  const [, ref] = useDrag({
+  const [, dragRef] = useDrag({
     type: 'ingredient',
     item: element
   });
@@ -20,7 +20,7 @@ function BurgerIngredient({ element, onClick }) {
       className={ burgerIngredientsStyles.item }
       id={ element._id }
       onClick={ onClick }
-      ref={ ref }
+      ref={ dragRef }
       draggable
     >
       <Counter count={ counter } size="default" />

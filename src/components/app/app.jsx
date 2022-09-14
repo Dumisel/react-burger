@@ -21,21 +21,22 @@ import {
   OPEN_ORDER_DETAILS,
   CLOSE_ORDER_DETAILS,
   getIngredients,
-  getOrder
+  getOrder,
+  GET_ORDER_FAILED
 } from '../../services/actions/actions';
 import update from 'immutability-helper';
+import { v4 as uuidv4 } from 'uuid';
 
 const  App = () => {
   const dispatch = useDispatch();
 
-  const ingredient = useSelector((store) => store.burger.ingredient);
-  const currentConstructor = useSelector((store) => store.burger.currentConstructor);
-  const isIngredientDetailsOpened = useSelector((store) => store.burger.isIngredientDetailsOpened);
-  const isOrderDetailsOpened = useSelector((store) => store.burger.isOrderDetailsOpened);
-  const order = useSelector((store) => store.burger.order);
+  const ingredient = useSelector((store) => store.ingredientReducer.ingredient);
+  const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
+  const isIngredientDetailsOpened = useSelector((store) => store.modalReducer.isIngredientDetailsOpened);
+  const isOrderDetailsOpened = useSelector((store) => store.modalReducer.isOrderDetailsOpened);
+  const order = useSelector((store) => store.orderReducer.order);
 
   const currentBurgerIngredients = [...currentConstructor].filter((item) => item.type !== 'bun');
-
 
   const openOrderDetails = () => {
     dispatch({ type: OPEN_ORDER_DETAILS });
@@ -50,6 +51,7 @@ const  App = () => {
   const closeModal = () => {
     dispatch({ type: DELETE_INGREDIENT_DATA });
     dispatch({ type: CLOSE_INGREDIENT_DETAILS });;
+    dispatch({ type: GET_ORDER_FAILED });
     dispatch({ type: CLOSE_ORDER_DETAILS });
   };
 
@@ -71,7 +73,7 @@ const  App = () => {
         dispatch({ type: DELETE_INGREDIENT, index });
       }
     }
-    dispatch({ type: ADD_INGREDIENT, item });
+    dispatch({ type: ADD_INGREDIENT, item: {...item, key:uuidv4()} });
   };
 
   const handleMove = React.useCallback((dragIndex, hoverIndex) => {
@@ -108,7 +110,7 @@ const  App = () => {
         <AppHeader />
         <Main>
           <BurgerIngredients handleOpenModal={ openIngredientDetails } />
-          <BurgerConstructor onOrder={ placeOrder } onDropHandler={handleDrop} onMove={ handleMove } onDelete={ handleDeleteIngredient } />
+          <BurgerConstructor onOrder={ placeOrder } onDrop={handleDrop} onMove={ handleMove } onDelete={ handleDeleteIngredient } />
       </Main>
       { isOrderDetailsOpened &&
         <Modal

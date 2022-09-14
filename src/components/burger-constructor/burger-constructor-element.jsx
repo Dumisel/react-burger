@@ -48,7 +48,7 @@ const BurgerConstructorElement = React.memo(({ element, id, index, onDelete, onM
     <li
       className={`${burgerConstructorStyles.ingredient} ${isDragging && burgerConstructorStyles.isDragging}`}
       ref={ ref }
-      data-handler-id={handlerId}
+      data-handler-id={ handlerId }
       draggable
     >
       <DragIcon type="primary" />

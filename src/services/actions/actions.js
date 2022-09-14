@@ -38,7 +38,8 @@ return function(dispatch) {
         type: GET_INGREDIENTS_FAILED
       });
     }
-  });
+  })
+  .catch(() => dispatch({ type: GET_INGREDIENTS_FAILED }));
 }
 }
 
@@ -58,6 +59,7 @@ export function getOrder(orderData) {
           type: GET_ORDER_FAILED
         });
       }
-    });
+    })
+    .catch(() => dispatch({ type: GET_ORDER_FAILED }));
   }
   }
