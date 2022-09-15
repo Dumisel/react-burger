@@ -9,8 +9,13 @@ import BurgerConstructorElement from './burger-constructor-element';
 const BurgerConstructor = ({ onOrder, onDrop, onDelete, onMove }) => {
   const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
   const bun = currentConstructor && currentConstructor.find((item) => item.type === 'bun');
-  const totalPrice = currentConstructor.length ? currentConstructor.reduce((total, current) => 
-    (current.type !== 'bun' ? total + current.price : total + current.price * 2), 0) : 0;
+
+  const totalPrice = React.useMemo(() => {
+    return (
+      currentConstructor.length ? currentConstructor.reduce((total, current) => 
+    (current.type !== 'bun' ? total + current.price : total + current.price * 2), 0) : 0
+    );
+  }, [currentConstructor]);
   
   const handleOrder = () => {
     onOrder(currentConstructor);

@@ -18,26 +18,34 @@ import {
   CLOSE_ORDER_DETAILS
   } from '../actions/actions';
 
-const initialState = {
-  ingredients: [],
-  ingredientsRequest: false,
-  ingredientsFailed: false,
+  const initialIngredientsState = {
+    ingredients: [],
+    ingredientsRequest: false,
+    ingredientsFailed: false
+  };
 
-  currentConstructor: [],
+  const initialConstructorState = {
+    currentConstructor: []
+  };
 
-  ingredient: {},
+  const initialIngredientState = {
+    ingredient: {}
+  };
 
-  order: {
-    number: null
-  },
-  orderRequest: false,
-  orderFailed: false,
+  const initialOrderState = {
+    order: {
+      number: null
+    },
+    orderRequest: false,
+    orderFailed: false
+  };
 
-  isIngredientDetailsOpened: false,
-  isOrderDetailsOpened: false
-};
+  const initialModalState = {
+    isIngredientDetailsOpened: false,
+    isOrderDetailsOpened: false
+  };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialIngredientsState, action) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -67,7 +75,7 @@ export const ingredientsReducer = (state = initialState, action) => {
   }
 };
 
-export const currentConstructorReducer = (state = initialState, action) => {
+export const currentConstructorReducer = (state = initialConstructorState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       return {
@@ -93,7 +101,7 @@ export const currentConstructorReducer = (state = initialState, action) => {
   }
 };
 
-export const ingredientReducer = (state = initialState, action) => {
+export const ingredientReducer = (state = initialIngredientState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT_DATA: {
       return {
@@ -113,7 +121,7 @@ export const ingredientReducer = (state = initialState, action) => {
   }
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialOrderState, action) => {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {
@@ -145,7 +153,7 @@ export const orderReducer = (state = initialState, action) => {
   }
 };
 
-export const modalReducer = (state = initialState, action) => {
+export const modalReducer = (state = initialModalState, action) => {
   switch (action.type) {
     case (OPEN_INGREDIENT_DETAILS): {
       return { ...state, isIngredientDetailsOpened: true };

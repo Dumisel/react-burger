@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ingredientType } from '../../utils/types';
@@ -7,8 +8,12 @@ import burgerIngredientsStyles from './burger-ingredients.module.css';
 
 function BurgerIngredient({ element, onClick }) {
   const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
-  const counter = currentConstructor.filter((item) => item.type === 'bun' && item._id === element._id).length * 2 
-                  || currentConstructor.filter((item) => item._id === element._id).length;
+  const counter = React.useMemo(() => {
+    return (
+      currentConstructor.filter((item) => item.type === 'bun' && item._id === element._id).length * 2 
+      || currentConstructor.filter((item) => item._id === element._id).length
+    );
+  }, [currentConstructor]);
 
   const [, dragRef] = useDrag({
     type: 'ingredient',
@@ -23,7 +28,8 @@ function BurgerIngredient({ element, onClick }) {
       ref={ dragRef }
       draggable
     >
-      <Counter count={ counter } size="default" />
+      {counter !== 0 ? (<Counter count={ counter } size="default" />) 
+        : (<Counter count={ null } size="undefined" />)}
       <img src={element.image} className={ burgerIngredientsStyles.image } alt={ element.name } />
       <p className={ burgerIngredientsStyles.price }>
         <span className='text text_type_digits-default'>{ element.price }</span>
