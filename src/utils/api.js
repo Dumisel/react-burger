@@ -16,9 +16,7 @@ export const getOrderNumber = (data) => fetch(`${api}/orders`, {
   body: JSON.stringify({ ingredients: data }),
 })
   .then(checkResponse)
-  .then((data) => data.order.number)
-  .then (console.log(data))
+  .then((data) => data.order)
 
-  export const getIngredients = () => fetch(`${api}/ingredients`)
+  export const getAllIngredients = () => fetch(`${api}/ingredients`)
   .then(checkResponse)
-  .then((data) => (data.data))
