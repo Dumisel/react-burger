@@ -30,8 +30,12 @@
   border: none;
 }
 
-.navigation .link:first-of-type {
+.linkActive {
   color: #F2F2F3;
+}
+
+.linkActive svg {
+  fill: #F2F2F3;
 }
 
 .button {

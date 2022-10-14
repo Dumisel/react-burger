@@ -1,9 +1,7 @@
 import React from 'react';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
+
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -16,9 +14,7 @@ import {
   ADD_INGREDIENT_DATA,
   DELETE_INGREDIENT_DATA,
   MOVE_CONSTRUCTOR_ELEMENT,
-  OPEN_INGREDIENT_DETAILS,
   CLOSE_INGREDIENT_DETAILS,
-  OPEN_ORDER_DETAILS,
   CLOSE_ORDER_DETAILS,
   getIngredients,
   getOrder,
@@ -26,26 +22,41 @@ import {
 } from '../../services/actions/actions';
 import update from 'immutability-helper';
 import { v4 as uuidv4 } from 'uuid';
+import { Route, Switch, useHistory, useLocation} from 'react-router-dom';
+import {
+  ConstructorPage,
+  LoginPage,
+  ProfilePage,
+  RegisterPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  IngredientPage,
+  OrdersPage,
+  NotFoundPage
+} from '../../pages/index.jsx';
+
+import ProtectedRoute from '../protected-route/protected-route';
+import { getUser } from '../../services/actions/actions';
+
 
 const  App = () => {
   const dispatch = useDispatch();
 
-  const ingredient = useSelector((store) => store.ingredientReducer.ingredient);
+  const history = useHistory();
+
+  const location = useLocation();
+  const background = location.state?.background;
+  
   const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
-  const isIngredientDetailsOpened = useSelector((store) => store.modalReducer.isIngredientDetailsOpened);
-  const isOrderDetailsOpened = useSelector((store) => store.modalReducer.isOrderDetailsOpened);
   const order = useSelector((store) => store.orderReducer.order);
+ 
+
+  const { isAuth } = useSelector((store) => store.authReducer);
 
   const currentBurgerIngredients = [...currentConstructor].filter((item) => item.type !== 'bun');
 
-  const openOrderDetails = () => {
-    dispatch({ type: OPEN_ORDER_DETAILS });
-  };
- 
-
   const openIngredientDetails = (item) => {
     dispatch({ type: ADD_INGREDIENT_DATA, item });
-    dispatch({ type: OPEN_INGREDIENT_DETAILS });
   }
 
   const closeModal = () => {
@@ -53,6 +64,7 @@ const  App = () => {
     dispatch({ type: CLOSE_INGREDIENT_DETAILS });;
     dispatch({ type: GET_ORDER_FAILED });
     dispatch({ type: CLOSE_ORDER_DETAILS });
+    history.goBack();
   };
 
   React.useEffect(() => {
@@ -61,9 +73,19 @@ const  App = () => {
 
   const placeOrder = (orderData) => {
     dispatch(getOrder(orderData));
-    openOrderDetails();
-
   };
+
+  React.useEffect(() => {
+    if (!isAuth && localStorage.getItem('jwt')) {
+      dispatch(getUser());
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (order.number) {
+      history.push(`/profile/orders/${order.number}`, { background: location });
+    }
+  }, [order]);
 
   const handleDrop = (item) => {
     if (item.type === 'bun') {
@@ -95,38 +117,71 @@ const  App = () => {
     dispatch({ type: MOVE_CONSTRUCTOR_ELEMENT, payload });
   }, [currentBurgerIngredients]);
 
-
-
-
   const handleDeleteIngredient = (item) => {
     const index = currentConstructor.indexOf(item);
     dispatch({ type: DELETE_INGREDIENT, index });
   };
 
+  console.log(location.state);
 
   return (
     <div className={ appStyles.app }>
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={ HTML5Backend }>
         <AppHeader />
-        <Main>
-          <BurgerIngredients handleOpenModal={ openIngredientDetails } />
-          <BurgerConstructor onOrder={ placeOrder } onDrop={handleDrop} onMove={ handleMove } onDelete={ handleDeleteIngredient } />
-      </Main>
-      { isOrderDetailsOpened &&
-        <Modal
-          header={ '' }
-          onClose={ closeModal }
-        >
-          <OrderDetails orderNumber={ order.number } /> 
-        </Modal> }
-      { isIngredientDetailsOpened &&
-        <Modal
-          ingredient={ ingredient }
-          header={ 'Детали ингредиента' }
-          onClose={ closeModal }
-        >
-          <IngredientDetails /> 
-        </Modal> }
+          <Switch location={ background || location }>
+            <Route path='/' exact={ true }>
+              <ConstructorPage
+                handleOpenModal={ openIngredientDetails }
+                onOrder={ placeOrder }
+                onDrop={ handleDrop }  
+                onMove={ handleMove } 
+                onDelete={ handleDeleteIngredient }
+              />
+            </Route>
+            <Route path='/profile/orders/:orderNumber' exact={ true }>
+              <OrderDetails />
+            </Route>
+            <Route path='/ingredients/:id' exact={ true }>
+              <IngredientPage />
+            </Route>
+            <Route path='/login' exact={ true }>
+              <LoginPage />
+            </Route>
+            <Route path='/register' exact={ true }>
+              <RegisterPage />
+            </Route>
+            <Route path='/forgot-password' exact={ true }>
+              <ForgotPasswordPage />
+            </Route>
+            <Route path='/reset-password' exact={ true }>
+              <ResetPasswordPage />
+            </Route>
+            <ProtectedRoute path='/profile' exact={ true }>
+              <ProfilePage />
+            </ProtectedRoute>
+            <ProtectedRoute path='/profile/orders' exact={ true }>
+              <OrdersPage />
+            </ProtectedRoute>
+            <Route>
+              <NotFoundPage />
+            </Route>
+          </Switch>
+          {background && (  
+            <ProtectedRoute path="/profile/orders/:orderNumber">
+              <Modal onClose={ closeModal } header={''}>
+                <OrderDetails />
+              </Modal>
+            </ProtectedRoute>
+          )}
+     
+          {background && (
+            <Route path="/ingredients/:id">
+              <Modal onClose={ closeModal }  header={ 'Детали ингредиента' }>
+                <IngredientDetails />
+              </Modal>
+            </Route>
+          )}
+            
       </DndProvider>
     </div>
   )

@@ -1,0 +1,4 @@
+.container {
+  composes: container from './login.module.css';
+  margin: 180px auto 0;
+}

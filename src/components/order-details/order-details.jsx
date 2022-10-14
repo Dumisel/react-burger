@@ -1,8 +1,10 @@
-import PropTypes from 'prop-types';
 import DoneImage from '../../utils/done-image';
 import orderDetailsStyles from './order-details.module.css';
+import { useParams } from 'react-router-dom';
 
-const OrderDetails = ({ orderNumber }) => {
+const OrderDetails = () => {
+  const { orderNumber } = useParams();
+
   return (
     <div className={ orderDetailsStyles.container }>
       <h2 className={ `${ orderDetailsStyles.number } text text_type_digits-large` }>{ orderNumber }</h2>
@@ -13,9 +15,5 @@ const OrderDetails = ({ orderNumber }) => {
     </div>
   );
 }
-
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.number,
-};
 
 export default OrderDetails;

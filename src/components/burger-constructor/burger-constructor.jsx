@@ -5,10 +5,14 @@ import {ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-dev
 import { useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import BurgerConstructorElement from './burger-constructor-element';
+import { useHistory } from 'react-router-dom';
 
 const BurgerConstructor = ({ onOrder, onDrop, onDelete, onMove }) => {
   const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
   const bun = currentConstructor && currentConstructor.find((item) => item.type === 'bun');
+  const history = useHistory();
+
+  const { isAuth } = useSelector((store) => store.authReducer);
 
   const totalPrice = React.useMemo(() => {
     return (
@@ -18,7 +22,11 @@ const BurgerConstructor = ({ onOrder, onDrop, onDelete, onMove }) => {
   }, [currentConstructor]);
   
   const handleOrder = () => {
-    onOrder(currentConstructor);
+    if (isAuth) {
+      onOrder(currentConstructor);
+    } else {
+      history.push('/login');
+    }
   };
 
   const [, dropTarget] = useDrop({

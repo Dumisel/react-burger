@@ -5,6 +5,8 @@ import { ingredientType } from '../../utils/types';
 import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
+import { Link, useLocation } from 'react-router-dom';
+
 
 function BurgerIngredient({ element, onClick }) {
   const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
@@ -20,23 +22,35 @@ function BurgerIngredient({ element, onClick }) {
     item: element
   });
 
+  const location = useLocation();
+  const ingredientId = element._id;
+
   return (
-    <div
-      className={ burgerIngredientsStyles.item }
-      id={ element._id }
-      onClick={ onClick }
-      ref={ dragRef }
-      draggable
+    <Link
+      key={ ingredientId }
+      to={{
+        pathname: `/ingredients/${ingredientId}`,
+        state: { background: location },
+      }}
+      className={ burgerIngredientsStyles.link }
     >
-      {counter !== 0 ? (<Counter count={ counter } size="default" />) 
-        : (<Counter count={ null } size="undefined" />)}
-      <img src={element.image} className={ burgerIngredientsStyles.image } alt={ element.name } />
-      <p className={ burgerIngredientsStyles.price }>
-        <span className='text text_type_digits-default'>{ element.price }</span>
+      <div
+        className={ burgerIngredientsStyles.item }
+        id={ element._id }
+        onClick={ onClick }
+        ref={ dragRef }
+        draggable
+      >
+        {counter !== 0 ? (<Counter count={ counter } size="default" />) 
+          : (<Counter count={ null } size="undefined" />)}
+        <img src={element.image} className={ burgerIngredientsStyles.image } alt={ element.name } />
+        <p className={ burgerIngredientsStyles.price }>
+          <span className='text text_type_digits-default'>{ element.price }</span>
         <CurrencyIcon type="primary" />
-      </p>
-      <p className={ `${burgerIngredientsStyles.text } text text_type_main-default`}>{ element.name }</p>
-    </div>
+        </p>
+        <p className={ `${burgerIngredientsStyles.text } text text_type_main-default`}>{ element.name }</p>
+      </div>
+    </Link>
   );
 }
 
