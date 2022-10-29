@@ -47,7 +47,7 @@ const Feed = () => {
               .slice(0, 20)
               .map((item) => {
                 return (
-                  <li className={ `${feedStyles.done} text text_type_digits-default` } key={(item.id = uuidv4())}>{ item.number }</li>);
+                  <li className={ `${feedStyles.done} text text_type_digits-default` } key={ item._id }>{ item.number }</li>);
                 })}
             </ul>
           </div>
@@ -59,7 +59,7 @@ const Feed = () => {
               .slice(0, 20)
               .map((item) => {
                 return (
-                  <li className={ `${feedStyles.inWork} text text_type_digits-default` } key={(item.id = uuidv4())}>{ item.number }</li>);
+                  <li className={ `${feedStyles.inWork} text text_type_digits-default` } key={ item._id}>{ item.number }</li>);
                 })}
             </ul>
           </div>

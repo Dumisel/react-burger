@@ -78,7 +78,7 @@ FeedElement.propTypes = {
   status: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   components: PropTypes.array.isRequired,
-  isUserOrders: PropTypes.bool.isRequired,
+  isUserOrders: PropTypes.object
 };
 
 export default FeedElement;
