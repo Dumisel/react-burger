@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import  wsReducer  from './wsReducers.js';
 
 import {
   GET_INGREDIENTS_REQUEST,
@@ -7,6 +8,7 @@ import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   MOVE_CONSTRUCTOR_ELEMENT,
+  CLEAR_CURRENT_CONSTRUCTOR,
   ADD_INGREDIENT_DATA,
   DELETE_INGREDIENT_DATA,
   GET_ORDER_REQUEST,
@@ -40,7 +42,7 @@ import {
   UPDATE_USER_FAILED,
   UPDATE_TOKEN_REQUEST,
   UPDATE_TOKEN_SUCCESS,
-  UPDATE_TOKEN_FAILED,
+  UPDATE_TOKEN_FAILED
   } from '../actions/actions';
 
   const initialIngredientsState = {
@@ -142,6 +144,12 @@ export const currentConstructorReducer = (state = initialConstructorState, actio
       return ({
         ...state,
         currentConstructor: action.payload,
+      });
+    }
+    case CLEAR_CURRENT_CONSTRUCTOR: {
+      return ({
+        ...state,
+        currentConstructor: [],
       });
     }
     default: {
@@ -416,7 +424,8 @@ const rootReducer = combineReducers({
   ingredientReducer,
   orderReducer,
   modalReducer,
-  authReducer
+  authReducer,
+  wsReducer
 })
 
 export default rootReducer;

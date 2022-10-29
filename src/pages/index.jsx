@@ -1,4 +1,4 @@
-import ConstructorPage from './constructor.jsx';
+import ConstructorPage from './constructor';
 import LoginPage from './login';
 import ProfilePage from './profile';
 import RegisterPage from './register';
@@ -7,6 +7,7 @@ import ResetPasswordPage from './reset-password';
 import IngredientPage from './ingredient';
 import OrdersPage  from './orders';
 import NotFoundPage from './not-found';
+import FeedPage from './feed'
 
 export {
   ConstructorPage,
@@ -18,4 +19,5 @@ export {
   IngredientPage,
   OrdersPage,
   NotFoundPage,
+  FeedPage
 };

@@ -14,6 +14,7 @@ import {
   ADD_INGREDIENT_DATA,
   DELETE_INGREDIENT_DATA,
   MOVE_CONSTRUCTOR_ELEMENT,
+  CLEAR_CURRENT_CONSTRUCTOR,
   CLOSE_INGREDIENT_DETAILS,
   CLOSE_ORDER_DETAILS,
   getIngredients,
@@ -32,9 +33,12 @@ import {
   ResetPasswordPage,
   IngredientPage,
   OrdersPage,
-  NotFoundPage
+  NotFoundPage,
+  FeedPage
 } from '../../pages/index.jsx';
 
+import FeedOrder from '../feed/feed-order';
+import FeedOrderModal from '../feed/feed-modal';
 import ProtectedRoute from '../protected-route/protected-route';
 import { getUser } from '../../services/actions/actions';
 
@@ -48,9 +52,8 @@ const  App = () => {
   const background = location.state?.background;
   
   const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
-  const order = useSelector((store) => store.orderReducer.order);
- 
-
+  const order = useSelector((store) => store.orderReducer.order)
+  
   const { isAuth } = useSelector((store) => store.authReducer);
 
   const currentBurgerIngredients = [...currentConstructor].filter((item) => item.type !== 'bun');
@@ -73,6 +76,7 @@ const  App = () => {
 
   const placeOrder = (orderData) => {
     dispatch(getOrder(orderData));
+    dispatch( {type: CLEAR_CURRENT_CONSTRUCTOR});
   };
 
   React.useEffect(() => {
@@ -80,12 +84,6 @@ const  App = () => {
       dispatch(getUser());
     }
   }, []);
-
-  React.useEffect(() => {
-    if (order.number) {
-      history.push(`/profile/orders/${order.number}`, { background: location });
-    }
-  }, [order]);
 
   const handleDrop = (item) => {
     if (item.type === 'bun') {
@@ -122,7 +120,17 @@ const  App = () => {
     dispatch({ type: DELETE_INGREDIENT, index });
   };
 
-  console.log(location.state);
+  React.useEffect(() => {
+    if (order?.number) {
+      history.push(`/orders/${order.number}`, { background: location });
+    }
+  }, [order]);
+
+  const [orderNumber, setOrderNumber] = React.useState('');
+  React.useEffect(() => {
+    const number = location.pathname.split('/').at(-1);
+    if (number) setOrderNumber(number);
+  }, [location]);
 
   return (
     <div className={ appStyles.app }>
@@ -138,12 +146,24 @@ const  App = () => {
                 onDelete={ handleDeleteIngredient }
               />
             </Route>
-            <Route path='/profile/orders/:orderNumber' exact={ true }>
-              <OrderDetails />
-            </Route>
             <Route path='/ingredients/:id' exact={ true }>
               <IngredientPage />
             </Route>
+            <Route path='/feed' exact={ true }> 
+              <FeedPage />
+            </Route>
+            <Route path='/feed/:id' exact={ true }>
+              <FeedOrder />
+            </Route>
+            <ProtectedRoute path='/profile' exact={ true }>
+              <ProfilePage />
+            </ProtectedRoute>
+            <ProtectedRoute path='/profile/orders' exact={ true }>
+              <OrdersPage />
+            </ProtectedRoute>
+            <ProtectedRoute path='/profile/orders/:id' exact={ true }>
+              <FeedOrder />
+            </ProtectedRoute>
             <Route path='/login' exact={ true }>
               <LoginPage />
             </Route>
@@ -156,31 +176,45 @@ const  App = () => {
             <Route path='/reset-password' exact={ true }>
               <ResetPasswordPage />
             </Route>
-            <ProtectedRoute path='/profile' exact={ true }>
-              <ProfilePage />
-            </ProtectedRoute>
-            <ProtectedRoute path='/profile/orders' exact={ true }>
-              <OrdersPage />
+            <ProtectedRoute path='/orders/:orderNumber' exact={ true }>
+              <OrderDetails  />
             </ProtectedRoute>
             <Route>
               <NotFoundPage />
             </Route>
           </Switch>
-          {background && (  
-            <ProtectedRoute path="/profile/orders/:orderNumber">
-              <Modal onClose={ closeModal } header={''}>
-                <OrderDetails />
-              </Modal>
-            </ProtectedRoute>
-          )}
-     
+
           {background && (
-            <Route path="/ingredients/:id">
+            <Route path='/ingredients/:id' exact={ true }>
               <Modal onClose={ closeModal }  header={ 'Детали ингредиента' }>
                 <IngredientDetails />
               </Modal>
             </Route>
           )}
+
+          {background && (
+            <Route path="/feed/:id" exact={ true }>
+              <Modal onClose={ closeModal } header={`#${orderNumber}`} headerStyle='text text_type_digits-default'>
+                <FeedOrderModal />
+              </Modal>
+            </Route>
+          )}
+
+          {background && (
+            <ProtectedRoute path="/profile/orders/:id" exact={ true }>
+              <Modal onClose={ closeModal } header={`#${orderNumber}`} headerStyle='text text_type_digits-default'>
+                <FeedOrderModal />
+              </Modal>
+            </ProtectedRoute>
+          )}
+     
+          {background && (
+            <ProtectedRoute path="/orders/:orderNumber" exact={ true }>
+              <Modal onClose={ closeModal } header={ '' }>
+                <OrderDetails  />
+              </Modal>
+            </ProtectedRoute>
+          )}    
             
       </DndProvider>
     </div>

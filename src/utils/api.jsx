@@ -11,70 +11,65 @@ const checkResponse = (res) => {
   return res.json();
 }
 
-export const getOrderNumber = (data) => fetch(`${api}/orders`, {
+const request = (url, options) => {
+  return fetch(url, options).then(checkResponse)
+}
+
+export const getOrderNumber = (data) => request(`${api}/orders`, {
   method: 'POST',
-  headers: {'Content-Type': 'application/json'},
+  headers: {'Content-Type': 'application/json',
+  Authorization: `${getCookie('token')}`},
   body: JSON.stringify({ ingredients: data }),
 })
-  .then(checkResponse)
   .then((data) => data.order)
 
-export const getAllIngredients = () => fetch(`${api}/ingredients`)
-  .then(checkResponse)
+export const getAllIngredients = () => request(`${api}/ingredients`)
 
-export const signUp = (data) => fetch(`${api}/auth/register`, {
+export const signUp = (data) => request(`${api}/auth/register`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(data)
 })
-  .then(checkResponse)
   
-export const signIn = (data) => fetch(`${api}/auth/login`, {
+export const signIn = (data) => request(`${api}/auth/login`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(data),
 })
-  .then(checkResponse)
   
-export const signOut = () => fetch(`${api}/auth/logout`, {
+export const signOut = () => request(`${api}/auth/logout`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ token: localStorage.getItem('jwt') }),
 })
-  .then(checkResponse)
   
-export const getUserInfo = () => fetch(`${api}/auth/user`, {
+export const getUserInfo = () => request(`${api}/auth/user`, {
   method: 'GET',
   headers: { 'Content-Type': 'application/json',
     Authorization: `${getCookie('token')}` }
 })
-  .then(checkResponse)
   
-export const updateUserInfo = (data) => fetch(`${api}/auth/user`, {
+export const updateUserInfo = (data) => request(`${api}/auth/user`, {
   method: 'PATCH',
   headers: { 'Content-Type': 'application/json',
     Authorization: `${getCookie('token')}` },
-  body: JSON.stringify(data),
+  body: JSON.stringify(data)
 })
-  .then(checkResponse)
   
-export const getConfirmation = (email) => fetch(`${api}/password-reset`, {
+export const getConfirmation = (email) => request(`${api}/password-reset`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ email }),
+  body: JSON.stringify({ email })
 })
-  .then(checkResponse)
   
-export const setNewPassword = (data) => fetch(`${api}/password-reset/reset`, {
+export const setNewPassword = (data) => request(`${api}/password-reset/reset`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(data),
+  body: JSON.stringify(data)
 })
-  .then(checkResponse)
   
-export const updateToken = () => fetch(`${api}/auth/token`, {
+export const updateToken = () => request(`${api}/auth/token`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ token: localStorage.getItem('jwt') }),
+  body: JSON.stringify({ token: localStorage.getItem('jwt') })
 })
-  .then(checkResponse)

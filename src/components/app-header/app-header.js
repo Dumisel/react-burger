@@ -11,12 +11,14 @@ const AppHeader = () => {
           <BurgerIcon type='secondary' />
           <p className='text text_type_main-default'>Конструктор</p>
         </NavLink>
-        <NavLink to='/orders' className={ headerStyles.link } activeClassName={ headerStyles.linkActive }>
+        <NavLink to='/feed' className={ headerStyles.link } activeClassName={ headerStyles.linkActive }>
           <ListIcon type='secondary' />
           <p className='text text_type_main-default'>Лента заказов</p>
         </NavLink>
       </nav>
+      <NavLink exact={ true } to="/">
       <p className={ headerStyles.logo }><Logo /></p>
+      </NavLink>
       <NavLink to='/profile' className={ headerStyles.button } activeClassName={ headerStyles.linkActive }>
         <ProfileIcon type='secondary' />
         <p className='text text_type_main-default'>Личный кабинет</p>
