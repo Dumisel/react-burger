@@ -27,7 +27,7 @@ const Feed = () => {
         <ul className={ feedStyles.list }>
         {orders.map((item) => (
           <FeedElement
-            key={`${item._id}_${uuidv4()}`}
+            key={item._id }
             number={ item.number }
             name={ item.name }
             status={ item.status }

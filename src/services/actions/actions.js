@@ -77,6 +77,7 @@ export const getOrder = (orderData) => {
           type: GET_ORDER_SUCCESS,
           order: res,
         })
+        dispatch( {type: CLEAR_CURRENT_CONSTRUCTOR});
       } else {
         dispatch({
           type: GET_ORDER_FAILED

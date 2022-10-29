@@ -7,8 +7,6 @@ import { wsConnectionStart, wsUserConnectionStart,
         } from '../../services/actions/wsActions';
 import { formatDate, formatStatus } from '../../utils/utils';
 import orderStyles from './feed-order.module.css';
-import { v4 as uuidv4 } from 'uuid';
-
 
 const FeedOrderModal = () => {
   const dispatch = useDispatch();
@@ -66,7 +64,7 @@ const FeedOrderModal = () => {
         <ul className={ orderStyles.list }>
           {feedIngredients && feedIngredients
             .map((item) => (
-              <li key={`${item._id}_${uuidv4()}`} className={ orderStyles.item }>
+              <li key={ item._id } className={ orderStyles.item }>
                 <div className={ orderStyles.info }>
                   <div className={ orderStyles.icon }>
                     <img src={ item.image } alt={ item.name }/>

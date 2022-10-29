@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useRouteMatch } from 'react-router-dom';
 import { wsUserConnectionStart, wsUserConnectionClosed } from '../../services/actions/wsActions';
 
-
 const FeedProfile = () => {
   const dispatch = useDispatch();
 
@@ -25,7 +24,7 @@ const FeedProfile = () => {
     <ul className={feedStyles.list}>
       { currentOrders && currentOrders.map((item) => (
         <FeedElement
-        key={`${item._id}_${uuidv4()}`}
+        key={ item._id }
         number={ item.number }
         name={ item.name }
         status={ item.status }

@@ -69,7 +69,6 @@ BurgerConstructorElement.propTypes = {
   index: PropTypes.number.isRequired,
   onDelete: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
 };
 
 export default BurgerConstructorElement;

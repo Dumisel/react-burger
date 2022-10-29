@@ -1,15 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { formatDate, formatStatus } from '../../utils/utils';
 import feedElementStyles from './feed-element.module.css';
-import { v4 as uuidv4 } from 'uuid';
 
 const FeedElement = ({ number, name, status, createdAt, components, isUserOrders }) => {
   const location = useLocation();
-
-  const { ingredients } = useSelector((store) => store.ingredientsReducer);
+  const ingredients = useSelector((store) => store.ingredientsReducer.ingredients);
   const orderIngredients = React.useMemo(() =>
     components.length && ingredients.length ? Object.values(components
       .map((item) => {
@@ -58,7 +57,7 @@ const FeedElement = ({ number, name, status, createdAt, components, isUserOrders
       </p> }
       <div className={ feedElementStyles.icons }>
         { feedIngredientsToShow.map((item, index) => (
-          <div key={`${item._id}_${uuidv4()}`}>
+          <div key={ item._id }>
             <img src={ item.image } alt={ item.name }/>
             { index === 0 && feedIngredientsToHide > 0 && 
             (<span className={ `${feedElementStyles.count} text text_type_digits-default` }>+{ feedIngredientsToHide }</span>)}
@@ -71,6 +70,15 @@ const FeedElement = ({ number, name, status, createdAt, components, isUserOrders
       </p>
     </Link>
   );
+};
+
+FeedElement.propTypes = {
+  number: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  components: PropTypes.array.isRequired,
+  isUserOrders: PropTypes.bool.isRequired,
 };
 
 export default FeedElement;

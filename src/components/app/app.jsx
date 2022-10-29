@@ -1,7 +1,7 @@
 import React from 'react';
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-
+import Loader from '../../utils/loader/loader';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -53,7 +53,7 @@ const  App = () => {
   
   const currentConstructor = useSelector((store) => store.currentConstructorReducer.currentConstructor);
   const order = useSelector((store) => store.orderReducer.order)
-  
+  const orderRequest = useSelector((store) => store.orderReducer.orderRequest)
   const { isAuth } = useSelector((store) => store.authReducer);
 
   const currentBurgerIngredients = [...currentConstructor].filter((item) => item.type !== 'bun');
@@ -76,7 +76,6 @@ const  App = () => {
 
   const placeOrder = (orderData) => {
     dispatch(getOrder(orderData));
-    dispatch( {type: CLEAR_CURRENT_CONSTRUCTOR});
   };
 
   React.useEffect(() => {
@@ -93,7 +92,7 @@ const  App = () => {
         dispatch({ type: DELETE_INGREDIENT, index });
       }
     }
-    dispatch({ type: ADD_INGREDIENT, item: {...item, key:uuidv4()} });
+    dispatch({ type: ADD_INGREDIENT, item: {...item, key: uuidv4()} });
   };
 
   const handleMove = React.useCallback((dragIndex, hoverIndex) => {
@@ -138,13 +137,16 @@ const  App = () => {
         <AppHeader />
           <Switch location={ background || location }>
             <Route path='/' exact={ true }>
-              <ConstructorPage
-                handleOpenModal={ openIngredientDetails }
-                onOrder={ placeOrder }
-                onDrop={ handleDrop }  
-                onMove={ handleMove } 
-                onDelete={ handleDeleteIngredient }
-              />
+              { orderRequest
+                ? (<Loader />)
+                : (
+                  <ConstructorPage
+                    handleOpenModal={ openIngredientDetails }
+                    onOrder={ placeOrder }
+                    onDrop={ handleDrop }  
+                    onMove={ handleMove } 
+                    onDelete={ handleDeleteIngredient }
+                  />)}
             </Route>
             <Route path='/ingredients/:id' exact={ true }>
               <IngredientPage />
