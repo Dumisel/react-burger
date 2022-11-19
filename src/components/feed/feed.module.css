@@ -1,0 +1,76 @@
+.container {
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  column-gap: 60px;
+}
+
+.feed {
+  composes: container from "../burger-ingredients/burger-ingredients.module.css";
+  align-items: flex-start;
+  width: 608px;
+  margin: 0;
+  padding: 0;
+}
+
+.list {
+  composes: list from "../burger-ingredients/burger-ingredients.module.css";
+  margin: 0;
+  padding: 0 8px 0;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+  height: 640px;
+}
+
+.stats {
+  composes: container from "../burger-ingredients/burger-ingredients.module.css";
+  align-items: flex-start;
+  width: 580px;
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  font-weight: normal;
+}
+
+.production {
+  display: flex;
+  column-gap: 36px;
+  margin-bottom: 60px;
+}
+
+.board {
+  min-width: 272px;
+  min-height: 152px;
+}
+
+.numbers {
+  list-style: none;
+  display: grid;
+  margin: 24px 0 0;
+  padding: 0;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  grid-auto-flow: column;
+}
+
+.done {
+  color: #00CCCC;
+}
+
+.inWork {
+  color: #F2F2F3;
+}
+
+.total {
+  margin-bottom: 60px;
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.total:first-child {
+  margin-bottom: 60px;
+}

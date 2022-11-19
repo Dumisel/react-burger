@@ -41,11 +41,17 @@ const ProfilePage = () => {
     <div className={ profileStyles.container }>
       <div className={ profileStyles.menu }>
         <nav className={profileStyles.navigation}>
-          <NavLink to={`${url}`} exact={ true } className={ `${profileStyles.link} text text_type_main-medium text_color_inactive`} activeClassName={ profileStyles.linkActive }>Профиль</NavLink>
-          <NavLink to={`${url}/orders`} exact={ true } className={ `${profileStyles.link} text text_type_main-medium text_color_inactive` } activeClassName={ profileStyles.linkActive }>История заказов</NavLink>
-          <button type="button" className={ `${profileStyles.link} text text_type_main-medium text_color_inactive` } onClick={ handleLogout }>Выход</button>
+          <NavLink to={`${url}`} exact={ true } className={ `${profileStyles.link} text text_type_main-medium text_color_inactive`} activeClassName={ profileStyles.linkActive }>
+            Профиль
+          </NavLink>
+          <NavLink to={`${url}/orders`} exact={ true } className={ `${profileStyles.link} text text_type_main-medium text_color_inactive` } activeClassName={ profileStyles.linkActive }>
+            История заказов
+          </NavLink>
+          <button type="button" className={ `${profileStyles.link} text text_type_main-medium text_color_inactive` } onClick={ handleLogout }>
+            Выход
+          </button>
         </nav>
-        <p className={`${profileStyles.subtitle} text text_type_main-default text_color_inactive`}>
+        <p className={`${profileStyles.caption} text text_type_main-default text_color_inactive`}>
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>

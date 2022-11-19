@@ -1,0 +1,11 @@
+.container {
+  width: 1240px;
+  margin: 40px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  text-align: start;
+}

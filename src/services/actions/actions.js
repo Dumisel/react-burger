@@ -9,6 +9,7 @@ export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 
 export const MOVE_CONSTRUCTOR_ELEMENT = 'MOVE_CONSTRUCTOR_ELEMENT';
+export const CLEAR_CURRENT_CONSTRUCTOR = 'CLEAR_CURRENT_CONSTRUCTOR';
 
 export const ADD_INGREDIENT_DATA = 'ADD_INGREDIENT_DATA';
 export const DELETE_INGREDIENT_DATA = 'DELETE_INGREDIENT_DATA';
@@ -76,6 +77,7 @@ export const getOrder = (orderData) => {
           type: GET_ORDER_SUCCESS,
           order: res,
         })
+        dispatch( {type: CLEAR_CURRENT_CONSTRUCTOR});
       } else {
         dispatch({
           type: GET_ORDER_FAILED
