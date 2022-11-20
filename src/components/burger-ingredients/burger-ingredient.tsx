@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useSelector } from '../../services/hooks';
+import { useSelector } from '../../services/hooks/hooks';
 import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyles from './burger-ingredients.module.css';

@@ -1,7 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { FC } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
-import { useDispatch, useSelector } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
 import { wsConnectionStart, wsUserConnectionStart,
         wsConnectionClosed, wsUserConnectionClosed
         } from '../../services/actions/wsActions';

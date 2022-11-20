@@ -5,17 +5,22 @@ import {
   IAddIngredient,
   IDeleteIngredient,
   IMoveConstructorElement,
-  IClearCurrentConstructor,
   IAddIngredientData,
   IDeleteIngredientData,
+  IOpenIngredientDetails,
+  ICloseIngredientDetails
+} from './ingredientsActions'
+
+import {
+  IClearCurrentConstructor,
   IGetOrderRequest,
   IGetOrderSuccess,
   IGetOrderFailed,
-  IOpenIngredientDetails,
-  ICloseIngredientDetails,
   IOpenOrderDetails,
-  ICloseOrderDetails,
+  ICloseOrderDetails
+} from './orderActions'
 
+import {
   IRegisterUserRequest,
   IRegisterUserSuccess,
   IRegisterUserFailed,
@@ -40,7 +45,7 @@ import {
   IUpdateTokenRequest,
   IUpdateTokenSuccess,
   IUpdateTokenFailed
-} from './actions'
+} from './authActions'
 
 import {
   IWsConnectionStart,

@@ -22,7 +22,7 @@ type TInitialState = {
     orders: Array<TOrder>,
     total: number,
     totalToday: number }
-};
+}
 const initialState: TInitialState = {
   wsConnected: false,
   wsError: undefined,
@@ -96,6 +96,6 @@ const wsReducer = (state = initialState, action: TActions) => {
       return state;
     }
   }
-};
+}
 
 export default wsReducer;

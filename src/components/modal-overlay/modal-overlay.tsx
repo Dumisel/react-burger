@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import modalOverlayStyles from './modal-overlay.module.css';
 
 type TModalOverlay = {

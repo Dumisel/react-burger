@@ -33,6 +33,7 @@
 
 .resetButton {
   background-color: transparent;
+  color: #F2F2F3;
   border: none;
   cursor: pointer;
 }

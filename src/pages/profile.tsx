@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { useDispatch, useSelector } from '../services/hooks';
+import { useDispatch, useSelector } from '../services/hooks/hooks';
 import { NavLink, useRouteMatch } from 'react-router-dom';
-import { logout, updateUser } from '../services/actions/actions';
+import { logout, updateUser } from '../services/actions/authActions';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import profileStyles from './profile.module.css';
 
@@ -83,7 +83,7 @@ const ProfilePage: FC = () => {
         { buttonsVisible && (
           <div className={ profileStyles.buttons }>
             <button type='button' className={ `${ profileStyles.resetButton } text text_type_main-default`} onClick={ handleReset }>Отмена</button>
-            <Button >Сохранить</Button>
+            <Button htmlType='submit' >Сохранить</Button>
           </div>
         )}
       </form>

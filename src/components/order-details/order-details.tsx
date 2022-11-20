@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import DoneImage from '../../utils/done-image';
 import orderDetailsStyles from './order-details.module.css';
 import { useParams } from 'react-router-dom';

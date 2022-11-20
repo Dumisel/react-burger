@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import ingredientDetailsStyles from './ingredient-details.module.css';
-import { useSelector } from '../../services/hooks';
+import { useSelector } from '../../services/hooks/hooks';
 import { useParams } from 'react-router-dom';
 import { TIngredient } from '../../services/types/types';
 
@@ -15,7 +15,7 @@ type TParams = {
 const IngredientDetails: FC<TIngredientDetails> = () => {
   const { id } = useParams<TParams>();
   const { ingredients } = useSelector((store) => store.ingredientsReducer);
-  const ingredient = ingredients.length && ingredients.find((item: TIngredient) => item._id === id);
+  const ingredient = ingredients.length && ingredients.find((item) => item._id === id);
 
   return (
     <div className={ ingredientDetailsStyles.container }>

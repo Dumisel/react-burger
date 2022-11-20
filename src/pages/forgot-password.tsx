@@ -1,20 +1,17 @@
 import React,{ FC } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from '../services/hooks';
+import { useDispatch, useSelector } from '../services/hooks/hooks';
 import loginStyles from './login.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { requestResetCode } from '../services/actions/actions';
+import { requestResetCode } from '../services/actions/authActions';
+import { useForm } from '../services/hooks/useForm';
 
 const ForgotPasswordPage: FC = () => {
   const { isAuth } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [form, setForm] = React.useState({ email: '' });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const { form, handleChange } = useForm({});
 
   const handleRequestCode = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,11 +32,11 @@ const ForgotPasswordPage: FC = () => {
         <Input
           type='email'
           name='email'
-          value={ form.email }
+          value={ form.email || '' }
           placeholder='Укажите e-mail'
           onChange={ handleChange }
         />
-        <Button type='primary' size='medium'>Восстановить</Button>
+        <Button htmlType='submit' type='primary' size='medium'>Восстановить</Button>
       </form>
       <p className='text text_type_main-default text_color_inactive'>
         Вспомнили пароль?

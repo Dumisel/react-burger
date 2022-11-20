@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { NavLink } from "react-router-dom";
 import profileStyles from './profile.module.css';
-import { logout } from '../services/actions/actions';
-import { useDispatch } from '../services/hooks';
+import { logout } from '../services/actions/authActions';
+import { useDispatch } from '../services/hooks/hooks';
 import FeedProfile from '../components/feed/feed-profile';
 
 const OrdersPage: FC = () => {

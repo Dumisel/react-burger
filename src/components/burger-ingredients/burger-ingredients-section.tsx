@@ -1,6 +1,6 @@
 import React from 'react';
 import burgerIngredientsStyles from './burger-ingredients.module.css';
-import { useSelector } from '../../services/hooks';
+import { useSelector } from '../../services/hooks/hooks';
 import BurgerIngredient from './burger-ingredient';
 import { TIngredient } from '../../services/types/types';
 

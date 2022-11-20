@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import burgerConstructorStyles from './burger-constructor.module.css';
 import {ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from '../../services/hooks';
+import { useSelector } from '../../services/hooks/hooks';
 import { useDrop } from 'react-dnd';
 import BurgerConstructorElement from './burger-constructor-element';
 import { useHistory } from 'react-router-dom';
@@ -86,7 +86,7 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ onOrder, onDrop, onDelete, 
           <span className={`${ burgerConstructorStyles.text } text text_type_digits-medium`}>{ totalPrice }</span> 
           <CurrencyIcon type='primary' />
         </p>
-      <Button type='primary' size='medium' onClick={ handleOrder } disabled={ !currentConstructor.length || !bun }>Оформить заказ</Button>
+      <Button htmlType='button' type='primary' size='medium' onClick={ handleOrder } disabled={ !currentConstructor.length || !bun }>Оформить заказ</Button>
       </div>
     </section>
   )

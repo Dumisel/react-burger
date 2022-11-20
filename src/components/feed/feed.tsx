@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import feedStyles from './feed.module.css';
 import FeedElement from './feed-element';
-import { useDispatch, useSelector } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
 import { useRouteMatch } from 'react-router-dom';
 import { wsConnectionClosed, wsConnectionStart } from '../../services/actions/wsActions';
 

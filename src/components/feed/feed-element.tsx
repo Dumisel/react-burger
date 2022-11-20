@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation, match } from 'react-router-dom';
-import { useSelector } from '../../services/hooks';
+import { useSelector } from '../../services/hooks/hooks';
 import { formatDate, formatStatus } from '../../utils/utils';
 import feedElementStyles from './feed-element.module.css';
 import { TIngredient } from '../../services/types/types';

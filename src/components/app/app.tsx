@@ -5,7 +5,7 @@ import Loader from '../../utils/loader/loader';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { useSelector, useDispatch } from '../../services/hooks';
+import { useSelector, useDispatch } from '../../services/hooks/hooks';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import {
@@ -15,11 +15,13 @@ import {
   deleteIngredientData,
   moveConstructorElement,
   closeIngredientDetails,
-  closeOrderDetails,
   getIngredients,
+} from '../../services/actions/ingredientsActions';
+import {
   getOrder,
-  getOrderFailed
-} from '../../services/actions/actions';
+  getOrderFailed,
+  closeOrderDetails
+} from '../../services/actions/orderActions';
 import update from 'immutability-helper';
 import { v4 as uuidv4 } from 'uuid';
 import { Route, Switch, useHistory, useLocation} from 'react-router-dom';
@@ -35,11 +37,10 @@ import {
   NotFoundPage,
   FeedPage
 } from '../../pages/index';
-
 import FeedOrder from '../feed/feed-order';
 import FeedOrderModal from '../feed/feed-modal';
 import ProtectedRoute from '../protected-route/protected-route';
-import { getUser } from '../../services/actions/actions';
+import { getUser } from '../../services/actions/authActions';
 import { TIngredient, TLocation } from '../../services/types/types';
 
 

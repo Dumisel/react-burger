@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import modalStyles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import PropTypes from 'prop-types';
 
 type TModal = {
   children: ReactNode;
@@ -16,7 +15,7 @@ const modalRoot = document.getElementById('react-modals') as HTMLElement;
 
 export const Modal: FC<TModal> = ({ children, header, onClose, headerStyle }) => {
   React.useEffect(() => {
-    const closeEsc = (e: { key: string }) => {
+    const closeEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       }

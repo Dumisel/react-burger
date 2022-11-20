@@ -1,17 +1,18 @@
 import React, { FC } from 'react';
-import { useDispatch, useSelector } from '../services/hooks';
+import { useDispatch, useSelector } from '../services/hooks/hooks';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { register } from '../services/actions/actions';
+import { register } from '../services/actions/authActions';
 import loginStyles from './login.module.css';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { TLocation } from '../services/types/types';
+import { useForm } from '../services/hooks/useForm';
 
 const RegisterPage: FC = () => {
   const { isAuth } = useSelector((store) => store.authReducer);
   const location = useLocation<TLocation>();
   const dispatch = useDispatch();
 
-  const [form, setForm] = React.useState({ name: '', email: '', password: '' });
+  const { form, handleChange } = useForm({});
 
   const [show, setShow] = React.useState(false);
 
@@ -20,10 +21,6 @@ const RegisterPage: FC = () => {
 
   const toggleVisibility = () => {
     setShow(!show);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,27 +41,27 @@ const RegisterPage: FC = () => {
         <Input
           type='text'
           name='name'
-          value={ form.name }
+          value={ form.name || '' }
           placeholder='Имя'
           onChange={ handleChange }
         />
         <Input
           type='email'
           name='email'
-          value={ form.email }
+          value={ form.email || '' }
           placeholder='E-mail'
           onChange={ handleChange }
         />
         <Input
           type={ type }
           name='password'
-          value={ form.password }
+          value={ form.password || '' }
           placeholder='Пароль'
           icon={ icon }
           onIconClick={ toggleVisibility }
           onChange={ handleChange }
         />
-        <Button type='primary' size='medium'>Зарегистрироваться</Button>
+        <Button htmlType='submit' type='primary' size='medium'>Зарегистрироваться</Button>
       </form>
       <p className='text text_type_main-default text_color_inactive'>
         Уже зарегистрированы?
