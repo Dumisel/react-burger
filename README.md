@@ -26,7 +26,7 @@ https://dumisel.github.io/react-burger/
 
 ---
 
-# Space Burgers. A project for Yandex.Praktikum
+# Space Burgers. A project for Yandex.Practicum
 ---
 
 The work on the project is divided into four months:
